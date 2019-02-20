@@ -10,17 +10,22 @@
 
             <v-container>
               <v-text-field v-model="item.taskName" label="Task Name" required></v-text-field>
+              <v-btn block color="info" @click="start" :disabled="!item.taskName">Start Task</v-btn>
             </v-container>
           </v-card>
         </v-window-item>
       </v-window>
+
+      <v-divider light></v-divider>
 
       <v-card-actions class="justify-space-between">
         <v-btn flat @click="previous" :disabled="index == 0">
           <v-icon>fa-chevron-left</v-icon>
         </v-btn>
 
-        <v-btn flat @click="next" :disabled="index == items.length - 1">
+        <v-btn color="success" block @click="create">Create New Task</v-btn>
+
+        <v-btn flat @click="next" :disabled="items.length === 0 || index == items.length - 1">
           <v-icon>fa-chevron-right</v-icon>
         </v-btn>
       </v-card-actions>
@@ -36,7 +41,7 @@ export default {
   },
   data: () => ({
     index: 0,
-    items: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
+    items: []
   }),
   mounted: function() {
     var vm = this;
@@ -52,6 +57,11 @@ export default {
     });
   },
   methods: {
+    create() {
+      this.items.push({ id: this.items.length + 1 });
+      this.index = this.items.length;
+    },
+
     previous() {
       if (this.index > 0) {
         this.index -= 1;

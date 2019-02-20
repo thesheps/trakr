@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <v-app :dark="dark">
+    <v-switch value v-model="dark" label="Dark Mode"></v-switch>
     <Home/>
   </v-app>
 </template>
@@ -14,7 +15,7 @@ export default {
   },
   data() {
     return {
-      //
+      dark: true
     };
   }
 };
