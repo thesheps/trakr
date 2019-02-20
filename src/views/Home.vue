@@ -1,14 +1,11 @@
 <template>
-  <div>
-    <Tracker/>
-  </div>
+  <Tracker/>
 </template>
 
 <script>
-import Tracker from "@/components/Tracker.vue";
+import Tracker from "../components/Tracker";
 
 export default {
-  name: "home",
   components: {
     Tracker
   }
