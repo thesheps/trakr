@@ -2,18 +2,7 @@
   <v-container fill-height>
     <v-flex fill-height>
       <v-window class="elevation-1" v-model="index" height="100%">
-        <v-window-item v-bind:key="item.id" v-for="item in items">
-          <v-card>
-            <v-card-text class="text-xs-center">
-              <v-progress-circular size="500" width="50" :value="69"></v-progress-circular>
-            </v-card-text>
-
-            <v-container>
-              <v-text-field v-model="item.taskName" label="Task Name" required></v-text-field>
-              <v-btn block color="info" @click="start" :disabled="!item.taskName">Start Task</v-btn>
-            </v-container>
-          </v-card>
-        </v-window-item>
+        <Task v-bind:task="task" v-bind:key="task.id" v-for="task in tasks"/>
       </v-window>
 
       <v-divider light></v-divider>
@@ -23,9 +12,11 @@
           <v-icon>fa-chevron-left</v-icon>
         </v-btn>
 
-        <v-btn color="success" block @click="create">Create New Task</v-btn>
+        <v-btn outline large fab @click="create">
+          <v-icon>fa-plus</v-icon>
+        </v-btn>
 
-        <v-btn flat @click="next" :disabled="items.length === 0 || index == items.length - 1">
+        <v-btn flat @click="next" :disabled="tasks.length === 0 || index == tasks.length - 1">
           <v-icon>fa-chevron-right</v-icon>
         </v-btn>
       </v-card-actions>
@@ -34,15 +25,18 @@
 </template>
 
 <script>
+import Task from "./Task";
+
 export default {
   name: "trackr",
-  props: {
-    msg: String
-  },
+
+  components: { Task },
+
   data: () => ({
     index: 0,
-    items: []
+    tasks: []
   }),
+
   mounted: function() {
     var vm = this;
 
@@ -51,15 +45,16 @@ export default {
         vm.previous();
       }
 
-      if (event.keyCode == 39 && vm.index < vm.items.length) {
+      if (event.keyCode == 39 && vm.index < vm.tasks.length) {
         vm.next();
       }
     });
   },
+
   methods: {
     create() {
-      this.items.push({ id: this.items.length + 1 });
-      this.index = this.items.length;
+      this.tasks.push({ times: [] });
+      this.index = this.tasks.length;
     },
 
     previous() {
@@ -69,7 +64,7 @@ export default {
     },
 
     next() {
-      if (this.index + 1 === this.items.length) {
+      if (this.index + 1 === this.tasks.length) {
         return;
       }
 
