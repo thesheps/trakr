@@ -1,4 +1,4 @@
-# trackr
+# trakr
 
 ## Project setup
 ```
