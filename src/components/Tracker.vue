@@ -32,6 +32,7 @@
 
 <script>
 import Task from "./Task";
+import uuid from "uuid/v1";
 
 export default {
   name: "trackr",
@@ -65,7 +66,7 @@ export default {
 
   methods: {
     create() {
-      this.tasks.push({ startTime: this.startTime, times: [] });
+      this.tasks.push({ id: uuid(), startTime: this.startTime, times: [] });
     },
 
     previous() {

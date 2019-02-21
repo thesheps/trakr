@@ -2,7 +2,7 @@
   <v-window-item>
     <v-card>
       <v-card-text class="text-xs-center">
-        <v-progress-circular size="500" width="50" :value="ratio">
+        <v-progress-circular size="500" width="50" :value="ratio" rotate="-90">
           <v-card-title class="display-4">{{timeElapsed}}</v-card-title>
         </v-progress-circular>
       </v-card-text>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { EventBus } from "../plugins/event-bus.js";
+
 function msToTime(duration) {
   var seconds = parseInt((duration / 1000) % 60),
     minutes = parseInt((duration / (1000 * 60)) % 60),
@@ -66,6 +68,13 @@ export default {
     this.times = this.task.times;
     this.startTime = this.task.startTime;
     this.timer = window.setInterval(this.recalculate, 10);
+
+    EventBus.$on("task-toggled", id => {
+      if (this.task.id !== id) {
+        this.times[this.times.length - 1].endTime = new Date();
+        this.isRunning = false;
+      }
+    });
   },
 
   methods: {
@@ -92,6 +101,7 @@ export default {
       }
 
       this.recalculate();
+      EventBus.$emit("task-toggled", this.task.id);
     }
   }
 };
