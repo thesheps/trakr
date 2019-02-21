@@ -1,9 +1,15 @@
 <template>
   <v-container fill-height>
     <v-flex fill-height>
-      <v-window class="elevation-1" v-model="index" height="100%">
+      <v-window v-if="tasks.length > 0" class="elevation-1" height="100%">
         <Task v-bind:task="task" v-bind:key="task.id" v-for="task in tasks"/>
       </v-window>
+
+      <v-card v-else>
+        <v-responsive :aspect-ratio="16/9">
+          <v-card-title class="display-4">{{ quote }}</v-card-title>
+        </v-responsive>
+      </v-card>
 
       <v-divider light></v-divider>
 
@@ -34,10 +40,15 @@ export default {
 
   data: () => ({
     index: 0,
-    tasks: []
+    tasks: [],
+    quote: ""
   }),
 
-  mounted: function() {
+  created() {
+    this.quote = "Welcome. Click below to start tracking!";
+  },
+
+  mounted() {
     var vm = this;
 
     window.addEventListener("keyup", function(event) {
@@ -54,7 +65,6 @@ export default {
   methods: {
     create() {
       this.tasks.push({ times: [] });
-      this.index = this.tasks.length;
     },
 
     previous() {
