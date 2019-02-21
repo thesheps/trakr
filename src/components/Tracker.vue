@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height>
     <v-flex fill-height>
-      <v-window v-if="tasks.length > 0" class="elevation-1" height="100%">
+      <v-window v-if="tasks.length > 0" v-model="index" class="elevation-1" height="100%">
         <Task v-bind:task="task" v-bind:key="task.id" v-for="task in tasks"/>
       </v-window>
 
@@ -41,7 +41,8 @@ export default {
   data: () => ({
     index: 0,
     tasks: [],
-    quote: ""
+    quote: "",
+    startTime: new Date()
   }),
 
   created() {
@@ -64,7 +65,7 @@ export default {
 
   methods: {
     create() {
-      this.tasks.push({ times: [] });
+      this.tasks.push({ startTime: this.startTime, times: [] });
     },
 
     previous() {

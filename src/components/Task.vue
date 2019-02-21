@@ -2,7 +2,9 @@
   <v-window-item>
     <v-card>
       <v-card-text class="text-xs-center">
-        <v-progress-circular size="500" width="50" :value="duration">{{timeElapsed}}</v-progress-circular>
+        <v-progress-circular size="500" width="50" :value="ratio">
+          <v-card-title class="display-4">{{timeElapsed}}</v-card-title>
+        </v-progress-circular>
       </v-card-text>
 
       <v-container>
@@ -21,8 +23,7 @@
 
 <script>
 function msToTime(duration) {
-  var milliseconds = parseInt((duration % 1000) / 100),
-    seconds = parseInt((duration / 1000) % 60),
+  var seconds = parseInt((duration / 1000) % 60),
     minutes = parseInt((duration / (1000 * 60)) % 60),
     hours = parseInt((duration / (1000 * 60 * 60)) % 24);
 
@@ -30,7 +31,7 @@ function msToTime(duration) {
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
 
-  return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+  return hours + ":" + minutes + ":" + seconds;
 }
 
 export default {
@@ -43,8 +44,8 @@ export default {
     label: "Start",
     name: "",
     times: [],
-    duration: 0,
-    timeElapsed: "00:00:00.0",
+    ratio: 0,
+    timeElapsed: "00:00:00",
     timer: ""
   }),
 
@@ -63,6 +64,7 @@ export default {
     this.label = this.task.label;
     this.name = this.task.name;
     this.times = this.task.times;
+    this.startTime = this.task.startTime;
     this.timer = window.setInterval(this.recalculate, 10);
   },
 
@@ -75,7 +77,7 @@ export default {
         duration += Math.abs(endTime - time.startTime);
       });
 
-      this.duration = duration;
+      this.ratio = duration / (new Date() - this.startTime);
       this.timeElapsed = msToTime(duration);
     },
 
