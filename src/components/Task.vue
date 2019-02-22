@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { EventBus } from "../plugins/event-bus.js";
+import { mapGetters } from "vuex";
 
 function msToTime(duration) {
   var seconds = parseInt((duration / 1000) % 60),
@@ -51,9 +51,22 @@ export default {
     timer: ""
   }),
 
+  computed: {
+    ...mapGetters({
+      currentTaskId: "getCurrentTaskId"
+    })
+  },
+
   watch: {
     isRunning: function(newValue) {
       this.label = newValue ? "Pause" : "Start";
+    },
+
+    currentTaskId: function(newValue) {
+      if (this.task.id !== newValue) {
+        this.times[this.times.length - 1].endTime = new Date();
+        this.isRunning = false;
+      }
     }
   },
 
@@ -68,13 +81,6 @@ export default {
     this.times = this.task.times;
     this.startTime = this.task.startTime;
     this.timer = window.setInterval(this.recalculate, 10);
-
-    EventBus.$on("task-toggled", id => {
-      if (this.task.id !== id) {
-        this.times[this.times.length - 1].endTime = new Date();
-        this.isRunning = false;
-      }
-    });
   },
 
   methods: {
@@ -101,7 +107,7 @@ export default {
       }
 
       this.recalculate();
-      EventBus.$emit("task-toggled", this.task.id);
+      this.$store.dispatch("setCurrentTaskId", this.task.id);
     }
   }
 };
