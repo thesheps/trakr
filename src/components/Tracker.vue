@@ -31,8 +31,9 @@
 </template>
 
 <script>
-import Task from "./Task";
+import { mapGetters } from "vuex";
 import uuid from "uuid/v1";
+import Task from "./Task";
 
 export default {
   name: "trackr",
@@ -41,10 +42,15 @@ export default {
 
   data: () => ({
     index: 0,
-    tasks: [],
     quote: "",
     startTime: new Date()
   }),
+
+  computed: {
+    ...mapGetters({
+      tasks: "getTasks"
+    })
+  },
 
   created() {
     this.quote = "Welcome. Click below to start tracking!";
@@ -66,7 +72,11 @@ export default {
 
   methods: {
     create() {
-      this.tasks.push({ id: uuid(), startTime: this.startTime, times: [] });
+      this.$store.dispatch("addTask", {
+        id: uuid(),
+        startTime: this.startTime,
+        times: []
+      });
     },
 
     previous() {

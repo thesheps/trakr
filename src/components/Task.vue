@@ -63,7 +63,7 @@ export default {
     },
 
     currentTaskId: function(newValue) {
-      if (this.task.id !== newValue) {
+      if (this.task.id !== newValue && this.times.length > 0) {
         this.times[this.times.length - 1].endTime = new Date();
         this.isRunning = false;
       }
