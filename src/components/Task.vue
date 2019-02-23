@@ -39,7 +39,7 @@ function msToTime(duration) {
 export default {
   name: "task",
 
-  props: ["task"],
+  props: ["task", "startTime"],
 
   data: () => ({
     isRunning: false,
@@ -86,7 +86,6 @@ export default {
     this.label = this.isRunning ? "Pause" : "Start";
     this.name = this.task.name;
     this.times = this.task.times;
-    this.startTime = new Date (this.task.startTime);
     this.timer = window.setInterval(this.recalculate, 1000);
   },
 
@@ -99,7 +98,7 @@ export default {
         duration += Math.abs(endTime - time.startTime);
       });
 
-      this.ratio = duration / (new Date() - this.startTime);
+      this.ratio = (duration / (new Date() - new Date(this.startTime))) * 100;
       this.timeElapsed = msToTime(duration);
     },
 

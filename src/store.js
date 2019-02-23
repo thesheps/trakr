@@ -13,11 +13,13 @@ export default new Vuex.Store({
   plugins: [vuexPersist.plugin],
 
   state: {
+    startTime: null,
     currentTaskId: "",
     tasks: []
   },
 
   getters: {
+    getStartTime: state => state.startTime,
     getCurrentTaskId: state => state.currentTaskId,
     getTasks: state => {
       let tasks = state.tasks;
@@ -40,6 +42,10 @@ export default new Vuex.Store({
     updateTask(state, task) {
       let index = state.tasks.findIndex(x => x.id == task.id);
       state.tasks[index] = task;
+    },
+
+    setStartTime(state, startTime) {
+      state.startTime = startTime;
     },
 
     setCurrentTaskId(state, taskId) {
