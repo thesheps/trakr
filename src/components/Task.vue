@@ -80,7 +80,7 @@ export default {
     this.name = this.task.name;
     this.times = this.task.times;
     this.startTime = this.task.startTime;
-    this.timer = window.setInterval(this.recalculate, 100);
+    this.timer = window.setInterval(this.recalculate, 1000);
   },
 
   methods: {
@@ -88,7 +88,7 @@ export default {
       let duration = 0;
 
       this.times.forEach(time => {
-        let endTime = time.endTime == null ? new Date() : time.endTime;
+        let endTime = !time.endTime ? new Date() : time.endTime;
         duration += Math.abs(endTime - time.startTime);
       });
 
@@ -100,7 +100,7 @@ export default {
       this.isRunning = !this.isRunning;
 
       if (this.isRunning) {
-        this.times.push({ startTime: new Date(), endTime: null });
+        this.times.push({ startTime: new Date() });
       } else {
         this.times[this.times.length - 1].endTime = new Date();
       }

@@ -24,7 +24,7 @@ export default new Vuex.Store({
       tasks.forEach(t => {
         t.times.forEach(time => {
           time.startTime = new Date(time.startTime);
-          time.endTime = new Date(time.endTime);
+          time.endTime = !time.endTime ? null : new Date(time.endTime);
         });
       });
 
