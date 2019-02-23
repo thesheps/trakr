@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import VuexPersist from "vuex-persist";
 
 const vuexPersist = new VuexPersist({
-  key: "trackr",
+  key: "trakr",
   storage: localStorage
 });
 
@@ -19,7 +19,17 @@ export default new Vuex.Store({
 
   getters: {
     getCurrentTaskId: state => state.currentTaskId,
-    getTasks: state => state.tasks
+    getTasks: state => {
+      let tasks = state.tasks;
+      tasks.forEach(t => {
+        t.times.forEach(time => {
+          time.startTime = new Date(time.startTime);
+          time.endTime = new Date(time.endTime);
+        });
+      });
+
+      return tasks;
+    }
   },
 
   mutations: {

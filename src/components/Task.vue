@@ -8,7 +8,7 @@
       </v-card-text>
 
       <v-container>
-        <v-text-field v-model="name" label="Task Name" required></v-text-field>
+        <v-text-field class="display-2" height="75" v-model="name" required></v-text-field>
         <v-btn
           large
           block
@@ -80,7 +80,7 @@ export default {
     this.name = this.task.name;
     this.times = this.task.times;
     this.startTime = this.task.startTime;
-    this.timer = window.setInterval(this.recalculate, 10);
+    this.timer = window.setInterval(this.recalculate, 100);
   },
 
   methods: {
@@ -88,7 +88,7 @@ export default {
       let duration = 0;
 
       this.times.forEach(time => {
-        let endTime = !time.endTime ? new Date() : time.endTime;
+        let endTime = time.endTime == null ? new Date() : time.endTime;
         duration += Math.abs(endTime - time.startTime);
       });
 
@@ -100,8 +100,7 @@ export default {
       this.isRunning = !this.isRunning;
 
       if (this.isRunning) {
-        let date = new Date();
-        this.times.push({ startTime: date });
+        this.times.push({ startTime: new Date(), endTime: null });
       } else {
         this.times[this.times.length - 1].endTime = new Date();
       }
