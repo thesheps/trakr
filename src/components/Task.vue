@@ -66,6 +66,13 @@ export default {
       if (this.task.id !== newValue && this.times.length > 0) {
         this.times[this.times.length - 1].endTime = new Date();
         this.isRunning = false;
+
+        this.$store.commit("updateTask", {
+          name: this.name,
+          id: this.task.id,
+          times: this.times,
+          isRunning: this.isRunning
+        });
       }
     }
   },
@@ -76,10 +83,10 @@ export default {
 
   mounted() {
     this.isRunning = this.task.isRunning;
-    this.label = this.task.label;
+    this.label = this.isRunning ? "Pause" : "Start";
     this.name = this.task.name;
     this.times = this.task.times;
-    this.startTime = this.task.startTime;
+    this.startTime = new Date (this.task.startTime);
     this.timer = window.setInterval(this.recalculate, 1000);
   },
 
@@ -105,8 +112,14 @@ export default {
         this.times[this.times.length - 1].endTime = new Date();
       }
 
-      this.recalculate();
-      this.$store.dispatch("setCurrentTaskId", this.task.id);
+      this.$store.commit("setCurrentTaskId", this.task.id);
+
+      this.$store.commit("updateTask", {
+        name: this.name,
+        id: this.task.id,
+        times: this.times,
+        isRunning: this.isRunning
+      });
     }
   }
 };

@@ -33,10 +33,6 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    setCurrentTaskId(state, taskId) {
-      state.currentTaskId = taskId;
-    },
-
     addTask(state, task) {
       state.tasks.push(task);
     },
@@ -44,20 +40,10 @@ export default new Vuex.Store({
     updateTask(state, task) {
       let index = state.tasks.findIndex(x => x.id == task.id);
       state.tasks[index] = task;
-    }
-  },
-
-  actions: {
-    setCurrentTaskId({ commit }, taskId) {
-      commit("setCurrentTaskId", taskId);
     },
 
-    addTask({ commit }, task) {
-      commit("addTask", task);
-    },
-
-    updateTask({ commit }, task) {
-      commit("updateTask", task);
+    setCurrentTaskId(state, taskId) {
+      state.currentTaskId = taskId;
     }
   }
 });

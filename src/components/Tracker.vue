@@ -72,7 +72,7 @@ export default {
 
   methods: {
     create() {
-      this.$store.dispatch("addTask", {
+      this.$store.commit("addTask", {
         id: uuid(),
         startTime: this.startTime,
         times: []
