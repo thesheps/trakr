@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import Tracker from "../components/Tracker";
 
 export default {
@@ -11,16 +10,6 @@ export default {
     Tracker
   },
 
-  computed: {
-    ...mapGetters({
-      startTime: "getStartTime"
-    })
-  },
-
-  mounted() {
-    if (!this.startTime) {
-      this.$store.commit("setStartTime", new Date());
-    }
-  }
+  props: ["startTime"]
 };
 </script>
