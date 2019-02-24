@@ -36,7 +36,7 @@ import uuid from "uuid/v1";
 import Task from "../components/Task";
 
 export default {
-  name: "trackr",
+  name: "Tracker",
 
   components: { Task },
 
