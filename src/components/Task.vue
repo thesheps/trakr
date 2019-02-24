@@ -2,21 +2,23 @@
   <v-window-item>
     <v-card>
       <v-card-text class="text-xs-center">
-        <v-progress-circular size="500" width="50" :value="ratio" rotate="-90">
-          <v-card-title class="display-4">{{timeElapsed}}</v-card-title>
+        <v-progress-circular
+          v-if="$vuetify.breakpoint.smAndUp"
+          size="450"
+          width="50"
+          :value="ratio"
+          rotate="-90"
+        >
+          <v-card-text class="display-3">{{timeElapsed}}</v-card-text>
         </v-progress-circular>
-      </v-card-text>
 
-      <v-container>
+        <v-card-text v-else class="display-3">
+          <p class="text-md-center">{{timeElapsed}}</p>
+        </v-card-text>
+
         <v-text-field class="display-2" height="75" v-model="name" required></v-text-field>
-        <v-btn
-          large
-          block
-          :color="isRunning ? 'error' : 'success'"
-          @click="toggle"
-          :disabled="!name"
-        >{{ label }}</v-btn>
-      </v-container>
+        <v-btn large block :color="isRunning ? 'error' : 'success'" @click="toggle">{{ label }}</v-btn>
+      </v-card-text>
     </v-card>
   </v-window-item>
 </template>

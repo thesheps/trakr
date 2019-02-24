@@ -38,7 +38,7 @@
 <script>
 import { mapGetters } from "vuex";
 import uuid from "uuid/v1";
-import Task from "./Task";
+import Task from "../components/Task";
 
 export default {
   name: "trackr",
