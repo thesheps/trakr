@@ -31,15 +31,17 @@ export default {
 
   props: ["task", "startTime"],
 
-  data: () => ({
-    isRunning: false,
-    label: "Start",
-    name: "",
-    times: [],
-    ratio: 0,
-    timeElapsed: "00:00:00",
-    timer: ""
-  }),
+  data: function() {
+    return {
+      isRunning: false,
+      label: "Start",
+      name: "",
+      times: [],
+      ratio: 0,
+      timeElapsed: "00:00:00",
+      timer: ""
+    };
+  },
 
   computed: {
     ...mapGetters({

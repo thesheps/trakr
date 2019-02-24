@@ -2,12 +2,7 @@
   <v-container fill-height>
     <v-flex fill-height>
       <v-window v-if="tasks.length > 0" v-model="index" class="elevation-1" height="100%">
-        <Task
-          v-bind:task="task"
-          v-bind:startTime="startTime"
-          v-bind:key="task.id"
-          v-for="task in tasks"
-        />
+        <Task v-bind:task="task" v-bind:key="task.id" v-for="task in tasks"/>
       </v-window>
 
       <v-card v-else>
@@ -44,8 +39,6 @@ export default {
   name: "trackr",
 
   components: { Task },
-
-  props: ["startTime"],
 
   data: () => ({
     index: 0,
