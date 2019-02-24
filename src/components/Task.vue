@@ -9,14 +9,14 @@
           :value="ratio"
           rotate="-90"
         >
-          <v-card-text class="display-3">{{timeElapsed}}</v-card-text>
+          <v-card-text class="display-3">{{timeElapsed | duration('humanize')}}</v-card-text>
         </v-progress-circular>
 
         <v-card-text v-else class="display-3">
-          <p class="text-md-center">{{timeElapsed}}</p>
+          <p class="text-md-center">{{timeElapsed | duration('humanize')}}</p>
         </v-card-text>
 
-        <v-text-field class="display-2" height="75" v-model="name" required></v-text-field>
+        <v-text-field class="display-1" height="75" v-model="name" required></v-text-field>
         <v-btn large block :color="isRunning ? 'error' : 'success'" @click="toggle">{{ label }}</v-btn>
       </v-card-text>
     </v-card>
@@ -25,18 +25,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-
-function msToTime(duration) {
-  var seconds = parseInt((duration / 1000) % 60),
-    minutes = parseInt((duration / (1000 * 60)) % 60),
-    hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-
-  hours = hours < 10 ? "0" + hours : hours;
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  seconds = seconds < 10 ? "0" + seconds : seconds;
-
-  return hours + ":" + minutes + ":" + seconds;
-}
 
 export default {
   name: "task",
@@ -101,7 +89,7 @@ export default {
       });
 
       this.ratio = (duration / (new Date() - new Date(this.startTime))) * 100;
-      this.timeElapsed = msToTime(duration);
+      this.timeElapsed = duration;
     },
 
     toggle() {
