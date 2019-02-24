@@ -1,15 +1,21 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Tracker from "./views/Tracker.vue";
+import Session from "./views/Session.vue";
+import Sessions from "./views/Sessions.vue";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: "/",
-      name: "tracker",
-      component: Tracker
+      path: "/session",
+      name: "session",
+      component: Session
+    },
+    {
+      path: "/sessions",
+      name: "sessions",
+      component: Sessions
     }
   ]
 });

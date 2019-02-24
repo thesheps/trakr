@@ -7,7 +7,7 @@
 
       <v-card v-else>
         <v-responsive :aspect-ratio="16/9">
-          <v-card-title class="display-4">{{ quote }}</v-card-title>
+          <v-card-title class="display-3">{{ quote }}</v-card-title>
         </v-responsive>
       </v-card>
 
@@ -36,7 +36,7 @@ import uuid from "uuid/v1";
 import Task from "../components/Task";
 
 export default {
-  name: "Tracker",
+  name: "Session",
 
   components: { Task },
 

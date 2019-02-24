@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="isOpened" absolute dark>
+  <v-navigation-drawer v-model="isOpened" absolute dark temporary>
     <v-list dense class="pt-0">
       <v-list-tile>
         <v-list-tile-content>
