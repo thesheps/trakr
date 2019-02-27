@@ -15,12 +15,23 @@ export default new Vuex.Store({
   state: {
     startTime: null,
     currentTaskId: "",
-    tasks: []
+    tasks: [],
+    sessions: []
   },
 
   getters: {
     getStartTime: state => state.startTime,
+
     getCurrentTaskId: state => state.currentTaskId,
+
+    getSessions: state => {
+      return state.sessions;
+    },
+
+    getSessionById: (state, getters) => id => {
+      return state.sessions.find(s => s.id === id);
+    },
+
     getTasks: state => {
       let tasks = state.tasks;
       tasks.forEach(t => {
@@ -42,6 +53,10 @@ export default new Vuex.Store({
     updateTask(state, task) {
       let index = state.tasks.findIndex(x => x.id == task.id);
       state.tasks[index] = task;
+    },
+
+    addSession(state, session) {
+      state.sessions.push(session);
     },
 
     setStartTime(state, startTime) {

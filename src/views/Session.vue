@@ -40,6 +40,8 @@ export default {
 
   components: { Task },
 
+  props: ["id"],
+
   data: () => ({
     index: 0,
     quote: ""

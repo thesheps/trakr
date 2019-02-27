@@ -35,7 +35,7 @@ export default {
   data: function() {
     return {
       isOpened: this.value,
-      items: [{ title: "Sessions", icon: "fa-calendar-alt", link: "sessions" }]
+      items: [{ title: "Sessions", icon: "fa-calendar-alt", link: "/" }]
     };
   },
 

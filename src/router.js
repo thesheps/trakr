@@ -8,12 +8,13 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/session",
+      path: "/session/:id",
       name: "session",
-      component: Session
+      component: Session,
+      props: true
     },
     {
-      path: "/sessions",
+      path: "/",
       name: "sessions",
       component: Sessions
     }

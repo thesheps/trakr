@@ -9,11 +9,11 @@
           :value="ratio"
           rotate="-90"
         >
-          <v-card-text class="display-3">{{timeElapsed | duration('humanize')}}</v-card-text>
+          <v-card-text class="display-3">{{timeElapsed | duration }}</v-card-text>
         </v-progress-circular>
 
         <v-card-text v-else class="display-3">
-          <p class="text-md-center">{{timeElapsed | duration('humanize')}}</p>
+          <p class="text-md-center">{{timeElapsed | duration }}</p>
         </v-card-text>
 
         <v-text-field class="display-1" height="75" v-model="name" required></v-text-field>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { mapGetters } from "vuex";
 
 export default {
@@ -66,6 +67,21 @@ export default {
           isRunning: this.isRunning
         });
       }
+    }
+  },
+
+  filters: {
+    duration: function(value) {
+      let duration = moment.duration(value);
+      let hours = ("0" + duration.hours()).slice(-2);
+      let minutes = ("0" + duration.minutes()).slice(-2);
+      let seconds = ("0" + duration.seconds()).slice(-2);
+
+      return `${hours}:${minutes}:${seconds}`;
+    },
+
+    padZero(value) {
+      return ("0" + myNumber).slice(-2);
     }
   },
 
