@@ -16,8 +16,12 @@
           <p class="text-md-center">{{timeElapsed | duration }}</p>
         </v-card-text>
 
-        <v-text-field class="display-1" height="75" v-model="name" required></v-text-field>
-        <v-btn large block :color="isRunning ? 'error' : 'success'" @click="toggle">{{ label }}</v-btn>
+        <v-flex xs12 class="mt-5">
+          <v-layout>
+            <v-text-field v-model="name" class="display-1" placeholder="My Task" single-line></v-text-field>
+            <v-btn large block :color="isRunning ? 'error' : 'success'" @click="toggle">{{ label }}</v-btn>
+          </v-layout>
+        </v-flex>
       </v-card-text>
     </v-card>
   </v-window-item>
